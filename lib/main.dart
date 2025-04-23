@@ -18,6 +18,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Dash',
       debugShowCheckedModeBanner: false, // Remueve la cinta de debug
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        textTheme: TextTheme(bodyMedium: TextStyle(fontSize: 18)),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 211, 203, 179),
+            foregroundColor: Colors.black,
+            textStyle: TextStyle(fontSize: 20, fontFamily: 'ARCADE'),
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+      ),
       home: HomeScreen(), // Acá poné la pantalla inicial que vas a crear abajo.
     );
   }
