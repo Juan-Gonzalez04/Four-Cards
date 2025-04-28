@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'play_screen.dart';
+import 'carrer_screen.dart';
+import 'settings_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +26,10 @@ class HomeScreen extends StatelessWidget {
               RetroButton(
                 label: 'JUGAR',
                 onPressed: () {
-                  print('PANTALLA JUGAR');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlayScreen()),
+                  );
                 },
                 fontSize: 25,
               ),
@@ -28,7 +37,10 @@ class HomeScreen extends StatelessWidget {
               RetroButton(
                 label: 'CARRERA',
                 onPressed: () {
-                  print('PANTALLA CARRERA');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CarrerScreen()),
+                  );
                 },
                 fontSize: 18,
               ),
@@ -39,7 +51,12 @@ class HomeScreen extends StatelessWidget {
                   RetroButton(
                     label: 'PERFIL',
                     onPressed: () {
-                      print('PANTALLA PERFIL');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
+                        ),
+                      );
                     },
                     fontSize: 15,
                   ),
@@ -47,7 +64,12 @@ class HomeScreen extends StatelessWidget {
                   RetroIconButton(
                     icon: Icons.settings,
                     onPressed: () {
-                      print('PANTALLA OPCIONES');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsScreen(),
+                        ),
+                      );
                     },
                     iconSize: 40,
                     padding: EdgeInsets.all(10),
@@ -69,12 +91,12 @@ class RetroButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   const RetroButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.onPressed,
     this.fontSize = 20,
     this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -114,12 +136,12 @@ class RetroIconButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   const RetroIconButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.icon,
     this.iconSize = 30,
     this.padding = const EdgeInsets.all(12),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
