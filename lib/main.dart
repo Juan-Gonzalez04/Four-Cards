@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 }
 
 //WIDGETS ADICIONALES
-class RetroButton extends StatelessWidget {
+class RetroButton extends StatefulWidget {
   final String label;
   final VoidCallback onPressed;
   final double fontSize;
@@ -56,29 +56,68 @@ class RetroButton extends StatelessWidget {
   });
 
   @override
+  RetroButtonState createState() => RetroButtonState();
+}
+
+class RetroButtonState extends State<RetroButton> {
+  bool _isPressed = false;
+
+  void _onTapDown(TapDownDetails details) {
+    setState(() {
+      _isPressed = true;
+    });
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    setState(() {
+      _isPressed = false;
+    });
+    widget.onPressed();
+  }
+
+  void _onTapCancel() {
+    setState(() {
+      _isPressed = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: padding,
+      onTapDown: _onTapDown,
+      onTapUp: _onTapUp,
+      onTapCancel: _onTapCancel,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        padding: widget.padding,
+        transform:
+            _isPressed
+                ? Matrix4.translationValues(2, 2, 0)
+                : Matrix4.identity(),
         decoration: BoxDecoration(
-          color: Color(0xFFC8461B),
+          color:
+              _isPressed
+                  ? Color(0xFFC8461B).withOpacity(0.8)
+                  : Color(0xFFC8461B),
           border: Border.all(color: Colors.yellow.shade700, width: 4),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha((0.6 * 255).round()),
-              offset: Offset(4, 4),
-            ),
-          ],
+          boxShadow:
+              _isPressed
+                  ? []
+                  : [
+                    BoxShadow(
+                      color: Colors.black.withAlpha((0.6 * 255).round()),
+                      offset: Offset(4, 4),
+                    ),
+                  ],
         ),
         child: Text(
-          label,
+          widget.label,
           style: TextStyle(
-            fontSize: fontSize,
+            fontSize: widget.fontSize,
             fontWeight: FontWeight.bold,
             color: Colors.yellow.shade200,
             fontFamily: 'ARCADE',
-            shadows: [Shadow(offset: Offset(3.5, 3.5), color: Colors.black)],
+            shadows: [Shadow(offset: Offset(2, 2), color: Colors.black)],
           ),
         ),
       ),
@@ -86,41 +125,84 @@ class RetroButton extends StatelessWidget {
   }
 }
 
-class RetroIconButton extends StatelessWidget {
+class RetroIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final double iconSize;
   final EdgeInsetsGeometry padding;
 
   const RetroIconButton({
-    super.key,
+    Key? key,
     required this.onPressed,
     required this.icon,
     this.iconSize = 30,
     this.padding = const EdgeInsets.all(12),
-  });
+  }) : super(key: key);
+
+  @override
+  State<RetroIconButton> createState() => _RetroIconButtonState();
+}
+
+class _RetroIconButtonState extends State<RetroIconButton> {
+  bool _isPressed = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _isPressed = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _isPressed = false;
+    });
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _isPressed = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: padding,
-        decoration: BoxDecoration(
-          color: Color(0xFFC8461B),
-          border: Border.all(color: Colors.yellow.shade700, width: 4),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha((0.6 * 255).round()),
-              offset: Offset(4, 4),
+    return Material(
+      color: Colors.transparent, // Para mantener fondo transparente
+      child: InkWell(
+        onTap: widget.onPressed,
+        onTapDown: _handleTapDown,
+        onTapUp: _handleTapUp,
+        onTapCancel: _handleTapCancel,
+        borderRadius: BorderRadius.circular(
+          8,
+        ), // Un pequeño radio para splash correcto
+        child: AnimatedScale(
+          scale: _isPressed ? 0.95 : 1.0,
+          duration: const Duration(milliseconds: 100),
+          child: Container(
+            padding: widget.padding,
+            decoration: BoxDecoration(
+              color: const Color(0xFFC8461B),
+              border: Border.all(color: Colors.yellow.shade700, width: 4),
+              boxShadow:
+                  _isPressed
+                      ? []
+                      : [
+                        BoxShadow(
+                          color: Colors.black.withAlpha((0.6 * 255).round()),
+                          offset: const Offset(4, 4),
+                        ),
+                      ],
             ),
-          ],
-        ),
-        child: Icon(
-          icon,
-          size: iconSize,
-          color: Colors.yellow.shade200,
-          shadows: [Shadow(offset: Offset(2, 2), color: Colors.black)],
+            child: Icon(
+              widget.icon,
+              size: widget.iconSize,
+              color: Colors.yellow.shade200,
+              shadows: const [
+                Shadow(offset: Offset(2, 2), color: Colors.black),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -131,8 +213,7 @@ class RetroAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool centerTitle;
 
-  const RetroAppBar({Key? key, required this.title, this.centerTitle = true})
-    : super(key: key);
+  const RetroAppBar({super.key, required this.title, this.centerTitle = true});
 
   @override
   Widget build(BuildContext context) {
