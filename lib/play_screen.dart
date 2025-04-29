@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:four_cards/main.dart';
+import 'package:four_cards/l10n/app_localizations.dart';
 
 class PlayScreen extends StatelessWidget {
   const PlayScreen({super.key});
@@ -7,7 +8,7 @@ class PlayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RetroAppBar(title: 'JUGAR'),
+      appBar: RetroAppBar(title: AppLocalizations.of(context).play),
 
       body: Container(
         decoration: BoxDecoration(
@@ -23,14 +24,14 @@ class PlayScreen extends StatelessWidget {
             children: [
               SizedBox(height: 250),
               RetroButton(
-                label: 'PRIVADA',
+                label: AppLocalizations.of(context).private,
                 onPressed: () {
                   print('PARTIDA PRIVADA');
                 },
               ),
               SizedBox(height: 50),
               RetroButton(
-                label: 'PUBLICA',
+                label: AppLocalizations.of(context).public,
                 onPressed: () {
                   print('PARTIDA PUBLICA');
                 },
@@ -40,7 +41,7 @@ class PlayScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   RetroButton(
-                    label: 'MARCADOR',
+                    label: AppLocalizations.of(context).scoreboard,
                     onPressed: () {
                       print('PANTALLA MARCADOR');
                     },

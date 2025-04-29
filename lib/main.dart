@@ -5,14 +5,10 @@ import 'home_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Punto de entrada de la app. Flutter arranca desde aquí.
-// Llamá a runApp() pasándole tu widget raíz.
 void main() {
   runApp(MyApp()); // Este widget va a representar toda tu app.
 }
 
-// Acá definí tu widget principal, extendiendo StatelessWidget.
-// Es buena práctica que este widget devuelva un MaterialApp.
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -34,12 +30,15 @@ class MyAppState extends State<MyApp> {
     final String? language = prefs.getString('language');
     if (language != null) {
       setState(() {
-        _locale = language == 'Spanish' ? Locale('es') : Locale('en');
+        _locale = language == 'ES' ? Locale('es') : Locale('en');
       });
     }
   }
 
-  void _changeLanguage(Locale locale) {
+  void _changeLanguage(Locale locale) async {
+    final prefs = await SharedPreferences.getInstance();
+    String language = locale.languageCode == 'es' ? 'ES' : 'EN';
+    await prefs.setString('language', language);
     setState(() {
       _locale = locale;
     });

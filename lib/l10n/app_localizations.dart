@@ -17,7 +17,14 @@ class AppLocalizations {
       'career': 'CARRERA',
       'profile': 'PERFIL',
       'settings': 'AJUSTES',
-      'language': 'Idioma',
+      'language': 'IDIOMA',
+      'music': 'MUSICA',
+      'sfx': 'SFX',
+      'vibration': 'VIBRACION',
+      'reset': 'RESTABLECER',
+      'private': 'PRIVADA',
+      'public': 'PUBLICA',
+      'scoreboard': 'MARCADOR',
     },
     'en': {
       'play': 'PLAY',
@@ -25,14 +32,34 @@ class AppLocalizations {
       'profile': 'PROFILE',
       'settings': 'SETTINGS',
       'language': 'Language',
+      'music': 'MUSIC',
+      'sfx': 'SFX',
+      'vibration': 'VIBRATION',
+      'reset': 'RESTART',
+      'private': 'PRIVATE',
+      'public': 'PUBLIC',
+      'scoreboard': 'SCOREBOARD',
     },
   };
 
-  String get play => _localizedValues[locale.languageCode]!['play']!;
-  String get career => _localizedValues[locale.languageCode]!['career']!;
-  String get profile => _localizedValues[locale.languageCode]!['profile']!;
-  String get settings => _localizedValues[locale.languageCode]!['settings']!;
-  String get language => _localizedValues[locale.languageCode]!['language']!;
+  String _translate(String key) {
+    return _localizedValues[locale.languageCode]?[key] ??
+        _localizedValues['en']![key] ??
+        key;
+  }
+
+  String get play => _translate('play');
+  String get career => _translate('career');
+  String get profile => _translate('profile');
+  String get settings => _translate('settings');
+  String get language => _translate('language');
+  String get music => _translate('music');
+  String get sfx => _translate('sfx');
+  String get vibration => _translate('vibration');
+  String get reset => _translate('reset');
+  String get private => _translate('private');
+  String get public => _translate('public');
+  String get scoreboard => _translate('scoreboard');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

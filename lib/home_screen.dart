@@ -4,6 +4,7 @@ import 'play_screen.dart';
 import 'carrer_screen.dart';
 import 'settings_screen.dart';
 import 'profile_screen.dart';
+import 'package:four_cards/l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   final Function(Locale) onLanguageChanged;
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               SizedBox(height: 50),
               RetroButton(
-                label: 'JUGAR',
+                label: AppLocalizations.of(context).play,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 10),
               RetroButton(
-                label: 'CARRERA',
+                label: AppLocalizations.of(context).career,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -52,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RetroButton(
-                    label: 'PERFIL',
+                    label: AppLocalizations.of(context).profile,
                     onPressed: () {
                       Navigator.push(
                         context,
