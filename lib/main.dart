@@ -1,6 +1,9 @@
 // Importá el paquete de Flutter necesario para cualquier app.
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'home_screen.dart';
+import 'l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Punto de entrada de la app. Flutter arranca desde aquí.
 // Llamá a runApp() pasándole tu widget raíz.
@@ -10,13 +13,40 @@ void main() {
 
 // Acá definí tu widget principal, extendiendo StatelessWidget.
 // Es buena práctica que este widget devuelva un MaterialApp.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('en');
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguage();
+  }
+
+  Future<void> _loadLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? language = prefs.getString('language');
+    if (language != null) {
+      setState(() {
+        _locale = language == 'Spanish' ? Locale('es') : Locale('en');
+      });
+    }
+  }
+
+  void _changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // MaterialApp es el contenedor general de la app.
-    // Podés definir aquí el tema, rutas, etc.
     return MaterialApp(
       title: 'Dash',
       debugShowCheckedModeBanner: false, // Remueve la cinta de debug
@@ -35,7 +65,23 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomeScreen(), // Acá poné la pantalla inicial que vas a crear abajo.
+      home: HomeScreen(onLanguageChanged: _changeLanguage),
+      supportedLocales: const [Locale('en'), Locale('es')],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
     );
   }
 }
@@ -97,7 +143,7 @@ class RetroButtonState extends State<RetroButton> {
         decoration: BoxDecoration(
           color:
               _isPressed
-                  ? Color(0xFFC8461B).withOpacity(0.8)
+                  ? Color(0xFFC8461B).withAlpha((0.8 * 255).round())
                   : Color(0xFFC8461B),
           border: Border.all(color: Colors.yellow.shade700, width: 4),
           boxShadow:
@@ -132,12 +178,12 @@ class RetroIconButton extends StatefulWidget {
   final EdgeInsetsGeometry padding;
 
   const RetroIconButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.icon,
     this.iconSize = 30,
     this.padding = const EdgeInsets.all(12),
-  }) : super(key: key);
+  });
 
   @override
   State<RetroIconButton> createState() => _RetroIconButtonState();

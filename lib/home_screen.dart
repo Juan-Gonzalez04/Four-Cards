@@ -6,7 +6,9 @@ import 'settings_screen.dart';
 import 'profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final Function(Locale) onLanguageChanged;
+
+  const HomeScreen({super.key, required this.onLanguageChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,10 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SettingsScreen(),
+                          builder:
+                              (context) => SettingsScreen(
+                                onLanguageChanged: onLanguageChanged,
+                              ),
                         ),
                       );
                     },
