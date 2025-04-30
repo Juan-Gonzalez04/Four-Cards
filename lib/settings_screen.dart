@@ -31,7 +31,8 @@ class SettingsScreenState extends State<SettingsScreen> {
     await prefs.setBool('music_enabled', true);
     await prefs.setBool('sfx_enabled', true);
     await prefs.setBool('vibration-enabled', true);
-    await prefs.setString('language', 'en');
+    await _saveLanguage('EN');
+    await _loadLanguage();
 
     setState(() {
       musicEnable = true;
