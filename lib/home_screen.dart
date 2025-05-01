@@ -26,7 +26,20 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
+              Transform.translate(
+                offset: Offset(0, -50),
+                child: Container(
+                  height: 170,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/title.png'),
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 0),
               RetroButton(
                 label: AppLocalizations.of(context).play,
                 onPressed: () {
