@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'widgets_custom.dart';
 import 'play_screen.dart';
 import 'carrer_screen.dart';
 import 'settings_screen.dart';
@@ -48,7 +48,8 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => PlayScreen()),
                   );
                 },
-                fontSize: 25,
+                fontSize: 35,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               ),
               SizedBox(height: 10),
               RetroButton(
@@ -59,7 +60,8 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => CarrerScreen()),
                   );
                 },
-                fontSize: 18,
+                fontSize: 25,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
               ),
               SizedBox(height: 10),
               Row(
@@ -75,7 +77,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    fontSize: 15,
+                    fontSize: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   ),
                   SizedBox(width: 10),
                   RetroIconButton(
@@ -92,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                     iconSize: 40,
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(5),
                   ),
                 ],
               ),

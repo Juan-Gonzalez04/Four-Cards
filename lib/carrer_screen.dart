@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets_custom.dart';
 
 class CarrerScreen extends StatelessWidget {
   const CarrerScreen({super.key});

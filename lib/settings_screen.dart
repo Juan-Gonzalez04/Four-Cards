@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:four_cards/main.dart';
+import 'widgets_custom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:four_cards/l10n/app_localizations.dart';
 
@@ -16,7 +16,7 @@ class SettingsScreenState extends State<SettingsScreen> {
   bool musicEnable = true;
   bool sfxEnable = true;
   bool vibrationEnabled = true;
-  String selectedLanguage = 'Spanish';
+  String selectedLanguage = 'En';
 
   @override
   void initState() {
