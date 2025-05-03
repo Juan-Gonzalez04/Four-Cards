@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:four_cards/main.dart';
+import 'widgets_custom.dart';
 import 'package:four_cards/l10n/app_localizations.dart';
+import 'scoreboard_screen.dart';
 
 class PlayScreen extends StatelessWidget {
   const PlayScreen({super.key});
@@ -43,7 +44,12 @@ class PlayScreen extends StatelessWidget {
                   RetroButton(
                     label: AppLocalizations.of(context).scoreboard,
                     onPressed: () {
-                      print('PANTALLA MARCADOR');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScoreboardScreen(),
+                        ),
+                      );
                     },
                     fontSize: 10,
                   ),
